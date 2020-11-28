@@ -1,0 +1,55 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="Johan (generated)" id="1606564803481-1">
+        <createTable tableName="BREEDS">
+            <column autoIncrement="true" name="BRE_ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="BRE_NAME" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Johan (generated)" id="1606564803481-2">
+        <createTable tableName="PROFILES">
+            <column autoIncrement="true" name="PRO_ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="PRO_NAME" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRO_BRE_ID" type="INT"/>
+            <column name="PRO_HEIGHT" type="INT"/>
+            <column name="PRO_WEIGHT" type="INT"/>
+            <column name="PRO_DESCRIPTION" type="VARCHAR(4000)"/>
+            <column name="PRO_IMAGE_URL" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Johan (generated)" id="1606564803481-3">
+        <createIndex indexName="IX_PRO_BRE_ID" tableName="PROFILES">
+            <column name="PRO_BRE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Johan (generated)" id="1606564803481-4">
+        <addForeignKeyConstraint baseColumnNames="PRO_BRE_ID" baseTableName="profiles" constraintName="FK_PRO_BRE_ID"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="BRE_ID" referencedTableName="BREEDS" validate="true"/>
+    </changeSet>
+    <changeSet author="Johan (generated)" id="1606564803481-5">
+        <insert tableName="BREEDS">
+            <column name="BRE_NAME" value="Golden Retriever"/>
+        </insert>
+        <insert tableName="BREEDS">
+            <column name="BRE_NAME" value="American Staffordshire Terrier"/>
+        </insert>
+        <insert tableName="BREEDS">
+            <column name="BRE_NAME" value="German Shepherd Doger"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="Johan" id="add profiles gender column">
+        <addColumn tableName="PROFILES">
+            <column name="PRO_GENDER" type="CHAR(1)"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
