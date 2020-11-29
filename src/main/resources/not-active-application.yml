@@ -1,0 +1,52 @@
+spring:
+    profiles:
+        active: mysql
+    datasource:
+        url: jdbc:mysql://localhost:3306/dating?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC
+        username: johan
+        password: bladibladibla
+    jpa:
+        database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+        database: mysql
+        openInView: false
+        show_sql: true
+        generate-ddl: false
+        hibernate:
+            ddl-auto: none
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        properties:
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: true
+    main:
+        log-startup-info: false
+    liquibase:
+        change-log: classpath:my-liquibase-changelog-file.xml
+
+---
+
+spring:
+    profiles:
+        active: h2
+    datasource:
+        url: jdbc:h2:mem:dating;DB_CLOSE_DELAY=-1
+        username:
+        password:
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        database: H2
+        openInView: false
+        show_sql: true
+        generate-ddl: false
+        hibernate:
+#           ddl-auto to none ... because we should use Liquibase !!!!
+            ddl-auto: none
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        properties:
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: true
+    main:
+        log-startup-info: false
+    liquibase:
+        change-log: classpath:db-with-sample-data.xml
